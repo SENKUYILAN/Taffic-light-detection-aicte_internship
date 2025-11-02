@@ -1,2 +1,3 @@
 # Traffic-light-detection
-to detect traffic light signals
+To detect traffic light signals
+Using the yolov8 model
