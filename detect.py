@@ -1,14 +1,23 @@
 from ultralytics import YOLO
 
-# Loading the pre-trained model
-model = YOLO('yolov8n.pt')
+# 1. Load the trained model weights
+MODEL_PATH = 'runs/detect/traffic_light_final_run/weights/best.pt' 
+model = YOLO(MODEL_PATH)
 
-#Define the training parameters and start training
-results = model.train(
-    data='data.yaml',
-    epochs=100,
-    imgsz=640,
-    batch=16,
-    name='traffic_light'
+# 2. Define prediction source and parameters
+# 'test/images' tells it to process all images in that folder
+SOURCE_PATH = 'test/images'
+IMAGE_SIZE = 640
+DEVICE = 'cpu'
+
+# 3. Run the prediction
+results = model.predict(
+    source=SOURCE_PATH,
+    imgsz=IMAGE_SIZE,
+    device=DEVICE,
+    save=True,     
+    show=False,     
+    conf=0.25       
 )
 
+print(f"Prediction complete! Results saved to: {model.predictor.save_dir}")
